@@ -31,5 +31,10 @@ pipeline {
                 echo 'Save the assemblies generated from the compilation' 
             }
         }
+        stage('build') {
+            steps {
+                echo 'Finally a build done'
+            }
+        }
     }
 }
