@@ -31,9 +31,28 @@ pipeline {
                 echo 'Save the assemblies generated from the compilation' 
             }
         }
-        stage('build') {
+        stage('Build') {
             steps {
                 echo 'Finally a build done'
+            }
+            post {
+                 always {
+                     jiraSendBuildInfo() 
+                 }
+             }
+        }
+        stage('deployments') {
+            parallel {
+                stage('deploy to stage') {
+                    steps {
+                        echo 'stage deployment done'
+                    }
+                }
+                stage('deploy to prod') {
+                    steps {
+                        echo 'prod deployment done'
+                    }
+                }
             }
         }
     }
